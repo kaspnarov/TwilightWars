@@ -334,28 +334,28 @@ class Board:
         if attacks != []:
             x, y = random.choice(attacks)
             attacked = self.board[y][x]
-            winner = 1
+            winner = 0
             draw = False
             endgame = False
 
             if piece.id > attacked.id:
-                winner = 0
+                winner = 1
                 self.attack(pos, (x,y))
             elif piece.id == attacked.id:
-                winner = 0
+                winner = 1
                 draw = True
                 self.empty(x,y)
             elif attacked.bomb and piece.id == 3:
-                winner = 0
+                winner = 1
                 self.attack(pos, (x,y))
             elif attacked.id == 10 and piece.id == 1:
-                winner = 0
+                winner = 1
                 self.attack(pos, (x,y))
             elif attacked.flag:
-                winner = 0
+                winner = 1
                 endgame = True
                 self.attack(pos, (x,y))
-            param = (piece, attacked, winner, endgame, draw)
+            param = (attacked, piece, winner, endgame, draw)
             self.empty(xPiece, yPiece)
 
         elif moves != []:

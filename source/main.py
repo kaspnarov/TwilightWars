@@ -76,8 +76,8 @@ while run:
     elif game_state == ENEMYPLAY:
         enemyAttack = BOARD.moveEnemy()
         if enemyAttack:
-            attacker, attacked, winner, endgame, draw = enemyAttack
-            VERSUS_SCREEN.draw(screen, (attacker.id, attacked.id, winner, not team, draw))
+            attacked, attacker, winner, endgame, draw = enemyAttack
+            VERSUS_SCREEN.draw(screen, (attacked.id, attacker.id, winner, team, draw))
             game_state = ENDGAME if endgame else VERSUS
         else: 
             game_state = GAME

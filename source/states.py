@@ -70,8 +70,6 @@ VERSUS_RED = [pygame.image.load("src/Enemies/nobg/Vampire.png"),
               pygame.image.load("src/Enemies/nobg/Witch.png"),
               pygame.image.load("src/Enemies/nobg/Helltrap.png"),
               pygame.image.load("src/Enemies/nobg/Necronomicon.png")]
-VERSUS_SCREEN_BLUE = pygame.image.load("src/img/versus_screen.png")
-VERSUS_SCREEN_RED = pygame.image.load("src/img/versus_screen_enemy.png")
 
 END_BG = [pygame.image.load("src/img/end-victory-bg.png"),
           pygame.image.load("src/img/end-defeat-bg.png")]
@@ -103,7 +101,8 @@ RULES_BUTTONS = [pygame.image.load("src/Buttons/Rules/back_button.png"),
                  pygame.image.load("src/Buttons/Rules/close_button_hovered.png")]
 
 DARK_SCREEN = pygame.image.load("src/img/highlight_bg.png")
-HIGHLIGHT_WINNER = pygame.image.load("src/img/highlight_winner.png")
+HIGHLIGHT_WINNER_BLUE = pygame.image.load("src/img/highlight_winner_blue.png")
+HIGHLIGHT_WINNER_RED = pygame.image.load("src/img/highlight_winner_red.png")
 
 class State:
     def __init__(self, state):
@@ -164,14 +163,13 @@ class State:
         elif self.state == VERSUS:
             ally, enemy, winner, blue_team, draw = params
             screen.blit(DARK_SCREEN, (100,100))
-            if draw: 
-                screen.blit(HIGHLIGHT_WINNER, (160,380))
-                screen.blit(HIGHLIGHT_WINNER, (570,380))
-            else:
-                screen.blit(HIGHLIGHT_WINNER, (160+(410*winner),380))
-            screen.blit(VERSUS_SCREEN_BLUE if blue_team else VERSUS_SCREEN_RED, (150,350))
-            screen.blit(VERSUS_BLUE[ally-1] if blue_team else VERSUS_RED[ally-1], (226, 455))
-            screen.blit(VERSUS_RED[enemy-1] if blue_team else VERSUS_BLUE[enemy-1], (632, 455))
+            screen.blit(self.img, (125,257))
+            if winner or draw:
+                screen.blit(HIGHLIGHT_WINNER_RED if blue_team else HIGHLIGHT_WINNER_BLUE, (520, 400))
+            if not winner or draw: 
+                screen.blit(HIGHLIGHT_WINNER_BLUE if blue_team else HIGHLIGHT_WINNER_RED, (270, 400))
+            screen.blit(VERSUS_BLUE[ally-1] if blue_team else VERSUS_RED[ally-1], (295, 425))
+            screen.blit(VERSUS_RED[enemy-1] if blue_team else VERSUS_BLUE[enemy-1], (545, 425))
 
         elif self.state == ENDGAME:
             win = params
