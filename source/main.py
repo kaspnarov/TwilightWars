@@ -178,7 +178,7 @@ while run:
 
         elif game_state == CHOOSETEAM:
             game_winner = 1
-            available_pieces = pieces
+            available_pieces = pieces.copy()
             highlighted = False
             allset = False
             
